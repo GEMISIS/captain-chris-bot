@@ -17,7 +17,7 @@ It is also recommended that you install the following:
 
 ## Quick Start Contributions
 
-Want to quickly get started adding commands? Check out the simple "Hello" command in `src/commands/hello.ts`, or a slightly more complicated "Poke" command in `src/commands/poke.ts`. You can begin adding new commands to the `src/commands` directory, and creating tests for your command in `test/commands`! See `test/commands/hello.test.ts` and `test/commands/poke.test.ts` for example tests too!
+Want to quickly get started adding commands? Check out the simple "Hello" command in [src/commands/hello.ts](src/commands/hello.ts), or a slightly more complicated "Poke" command in [src/commands/poke.ts](src/commands/poke.ts). You can begin adding new commands to the [src/commands](src/commands) directory, and creating tests for your command in [test/commands](test/commands)! See [test/commands/hello.test.ts](test/commands/hello.test.ts) and [test/commands/poke.test.ts](test/commands/poke.test.ts) for example tests too!
 
 To test your command locally, you'll first want to build the code with `npm run build`. Afterwards, you can use the `command` script to test the command locally by passing in a request event structure. For example, to run the "Hello" command, you can simply do the following:
 
@@ -37,9 +37,9 @@ Join the CNU ACM Discord server to get help!
 
 ## Architecture
 
-The architecture of this projet is fairly simple: When a user uses a slash command from this bot, Discord will reach out to our endpoint at API Gateway and call into the lambda function at `src/functions/core-command.ts`. If the command is valid, then the corresponding command in `src/commands` will be called! You can see the architecture of the cloud side below:
+The architecture of this projet is fairly simple: When a user uses a slash command from this bot, Discord will reach out to our endpoint at API Gateway and call into the lambda function at [src/functions/core-command.ts](src/functions/core-command.ts). If the command is valid, then the corresponding command in [src/commands](src/commands) will be called! You can see the architecture of the cloud side below:
 
-![Architecture of the bot](https://github.com/GEMISIS/captain-chris-bot/blob/main/diagrams/architecture.png?raw=true)
+![Architecture of the bot](diagrams/architecture.png?raw=true)
 
 ## Setting Up Project
 
@@ -81,12 +81,12 @@ This information is used when validating things with Discord's APIs. Once you ha
 
 Adding commands is fairly straightforward:
 
-1. Begin by creating a new command file in `src/commands`
+1. Begin by creating a new command file in [src/commands](src/commands)
 2. Declare a slash command structure.
 3. Declare your command's callback for when called.
-4. Update `src/commands/command-list.ts`'s `Commands` array with your command.
+4. Update the [Commands array in src/commands/command-list.ts](src/commands/command-list.ts#L27) with your command.
 
-As an example, you can see in `src/commands/hello.ts` a very simple "hello world" command. If you want your command to take inputs, see `src/commands/poke.ts` for how to tag users (note that you can use strings and other types too!)
+As an example, you can see in [src/commands/hello.ts](src/commands/hello.ts) a very simple "hello world" command. If you want your command to take inputs, see [src/commands/poke.ts](src/commands/poke.ts) for how to tag users (note that you can use strings and other types too!)
 
 After you have added a new command, there are two things that still need to happen to actually use the commands:
 
