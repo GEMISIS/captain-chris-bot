@@ -1,8 +1,14 @@
-*.js
-!jest.config.js
-*.d.ts
+# Ignore node specific things
 node_modules
+
+# Ignore intermediary outputs
+*.js
+*.d.ts
+build/
 
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# Ignore test coverage
+coverage/
