@@ -12,7 +12,8 @@
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "fix-lint": "eslint \"**/*.{ts,tsx}\" --fix",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "command": "node build/tools/command-runner.js"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
@@ -48,7 +49,7 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/index.ts",
       "!src/commands/command-list.ts",
-      "!src/tools/configure-bot.ts"
+      "!src/tools/**/*.{js,jsx,ts,tsx}"
     ],
     "coverageThreshold": {
       "global": {

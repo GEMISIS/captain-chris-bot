@@ -4,9 +4,34 @@ This is a Discord bot for Christopher Newport University servers! It makes use o
 
 Interested in adding it to your Discord server? Contact me [here](https://geraldmcalister.com/contact.html) (use any Subject you want) to request a link to it. The bot will be made more public at a later date.
 
+## Pre-Requisites
+
+To develop on this project, the following will need to be installed:
+
+- [NodeJS](https://nodejs.org/) (Version 18.x is Recommended)
+
+It is also recommended that you install the following:
+
+- [Visual Studio Code](https://code.visualstudio.com/) - Recommended development IDE
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) - Required if you plan to do any development more than simple commands.
+
 ## Quick Start Contributions
 
 Want to quickly get started adding commands? Check out the simple "Hello" command in `src/commands/hello.ts`, or a slightly more complicated "Poke" command in `src/commands/poke.ts`. You can begin adding new commands to the `src/commands` directory, and creating tests for your command in `test/commands`! See `test/commands/hello.test.ts` and `test/commands/poke.test.ts` for example tests too!
+
+To test your command locally, you'll first want to build the code with `npm run build`. Afterwards, you can use the `command` script to test the command locally by passing in a request event structure. For example, to run the "Hello" command, you can simply do the following:
+
+```bash
+npm run build
+npm run command '{"name": "hello"}'
+```
+
+You can pass in arguments by adding options to the JSON data input, for example, here is the "Poke" command where we can pass in a user ID:
+
+```bash
+npm run build
+npm run command '{"name": "poke", "options": [{"value": "123"}]}'
+```
 
 Join the CNU ACM Discord server to get help!
 
@@ -82,20 +107,26 @@ If you plan to contribute new commands to the project, please make sure to `lint
 
 ## Useful commands
 
+### For testing, use the following commands
+
+- `npm run test`                        perform the jest unit tests and output coverage
+- `npm run command <json_data>`         runs a desired command locally.
+  - `<json_data>` should be in the format of a `IDiscordRequestData` object, for example: `'{"name": "hello"}'`.
+
+
 ### For deplying, use the following commands
 
-* `npm run build`                       compile typescript to js
-* `cdk synth`                           emits the synthesized CloudFormation template
-* `cdk deploy`                          deploy this stack to your default AWS account/region
+- `npm run build`                       compile typescript to js
+- `cdk synth`                           emits the synthesized CloudFormation template
+- `cdk deploy`                          deploy this stack to your default AWS account/region
 
 ### For keeping the code clean, use the following commands
 
-* `npm run lint`                        runs linting across the code
-* `npm run fix-lint`                    fixes any lint issues where possible across the code
-* `npm run test`                        perform the jest unit tests and output coverage
-* `cdk diff`                            compare deployed stack with current state
+- `npm run lint`                        runs linting across the code
+- `npm run fix-lint`                    fixes any lint issues where possible across the code
+- `cdk diff`                            compare deployed stack with current state
 
 ### Run the following to manage slash commands
 
-* `npm run configure <secrets_name>`    sets up the slash commands using the secret keys in CDK.
-* `npm run reset <secrets_name>`        resets the slash commands using the secret keys in CDK.
+- `npm run configure <secrets_name>`    sets up the slash commands using the secret keys in CDK.
+- `npm run reset <secrets_name>`        resets the slash commands using the secret keys in CDK.
