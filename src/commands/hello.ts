@@ -1,4 +1,8 @@
-import { IDiscordResponseData } from 'discord-bot-cdk-construct';
+import {
+    IDiscordMember,
+    IDiscordRequestData,
+    IDiscordResponseData,
+} from 'discord-bot-cdk-construct';
 import { CustomCommand, SlashCommand } from './command-list';
 
 const helloCommandInfo: SlashCommand = {
@@ -8,12 +12,19 @@ const helloCommandInfo: SlashCommand = {
 
 /**
  * A simple hello command, just responds.
- * @return {IDiscordResponseData} Returns the response that should be sent down.
+ * @param {IDiscordRequestData} _requestData The incoming request data.
+ * @param {IDiscordMember} memberData The information of the sender for this command.
+ * @return {IDiscordResponseData} Returns a simple "Hello there" response.
  */
-function helloCommand(): IDiscordResponseData {
+function helloCommand(_requestData?: IDiscordRequestData,
+    memberData?: IDiscordMember): IDiscordResponseData {
+    let message: string = 'Hello there!';
+    if (memberData?.user) {
+        message = `Hello there <@${memberData.user.id}>!`;
+    }
     return {
         tts: false,
-        content: 'Hello there!',
+        content: message,
         embeds: [],
         allowedMentions: [],
     };

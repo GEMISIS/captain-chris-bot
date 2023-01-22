@@ -1,4 +1,8 @@
-import { IDiscordRequestData, IDiscordResponseData } from 'discord-bot-cdk-construct';
+import {
+    IDiscordMember,
+    IDiscordRequestData,
+    IDiscordResponseData,
+} from 'discord-bot-cdk-construct';
 import { PartialApplicationCommand } from 'slash-commands';
 import { HelloCommand } from './hello';
 import { PokeCommand } from './poke';
@@ -17,7 +21,8 @@ export interface CustomCommand {
     /** The properties of the slash command, used for configuring the bot. */
     slashCommand: SlashCommand;
     /** The callback to run for the slash command. */
-    callback: (requestData: IDiscordRequestData) => IDiscordResponseData;
+    callback: (requestData?: IDiscordRequestData,
+        memberData?: IDiscordMember) => IDiscordResponseData;
 }
 
 /**

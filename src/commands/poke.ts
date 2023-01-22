@@ -17,13 +17,13 @@ const pokeCommandInfo: SlashCommand = {
 
 /**
  * A simple poke command, pokes the user mentioned.
- * @param {IDiscordRequestData} input The incoming request data.
+ * @param {IDiscordRequestData} requestData The incoming request data.
  * @return {IDiscordResponseData} Returns the response that should be sent down.
  */
-function pokeCommand(input: IDiscordRequestData): IDiscordResponseData {
+function pokeCommand(requestData?: IDiscordRequestData): IDiscordResponseData {
     let message: string = 'Couldn\'t poke the user for some reason!';
-    if (input?.options) {
-        message = `Hey <@${input?.options[0].value}>, I'm poking you!`;
+    if (requestData?.options) {
+        message = `Hey <@${requestData?.options[0].value}>, I'm poking you!`;
     }
     return {
         tts: false,

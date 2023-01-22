@@ -1,6 +1,6 @@
 # Captain Chris Bot
 
-This is a Discord bot for Christopher Newport University servers! It makes use of AWS to allow for the bot to be serverless, meaning there is no dedicat host waiting for commands. Instead, it uses the [Discord Bot CDK Construct](https://constructs.dev/packages/discord-bot-cdk-construct/) in TypeScript to deploy via API Gateway and Lambda functions.
+This is a Discord bot for Christopher Newport University servers! It makes use of AWS to allow for the bot to be serverless, meaning there is no dedicated host waiting for commands. Instead, it uses the [Discord Bot CDK Construct](https://constructs.dev/packages/discord-bot-cdk-construct/) in TypeScript to deploy via API Gateway and Lambda functions.
 
 Interested in adding it to your Discord server? Contact me [here](https://geraldmcalister.com/contact.html) (use any Subject you want) to request a link to it. The bot will be made more public at a later date.
 
@@ -26,11 +26,18 @@ npm run build
 npm run command '{"name": "hello"}'
 ```
 
-You can pass in arguments by adding options to the JSON data input, for example, here is the "Poke" command where we can pass in a user ID:
+You can pass in arguments by adding options to the JSON data input, for example, here is the "Poke" command where we can pass in a user ID for who to poke:
 
 ```bash
 npm run build
 npm run command '{"name": "poke", "options": [{"value": "123"}]}'
+```
+
+Commands can also use the information of the Discord user that sent the message. For example, the "Hello" command can respond to the specific user when run as follows:
+
+```bash
+npm run build
+npm run command '{"name": "hello"}' '{"user": {"id": 123}}'
 ```
 
 Join the CNU ACM Discord server to get help!

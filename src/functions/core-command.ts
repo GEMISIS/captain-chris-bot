@@ -27,7 +27,7 @@ export async function handler(event: IDiscordEventRequest): Promise<string> {
         if (customCommand) {
             // If we find a custom command, call it and send the response down.
             await sendFollowupMessage(endpointInfo, event.jsonBody.token,
-                customCommand.callback(event.jsonBody.data));
+                customCommand.callback(event.jsonBody.data, event.jsonBody.member));
         } else {
             console.log('Invalid command!');
             return '400';
