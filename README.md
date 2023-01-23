@@ -4,113 +4,15 @@ This is a Discord bot for Christopher Newport University servers! It makes use o
 
 Interested in adding it to your Discord server? Contact me [here](https://geraldmcalister.com/contact.html) (use any Subject you want) to request a link to it. The bot will be made more public at a later date.
 
-## Pre-Requisites
+## Getting Started Contributing
 
-To develop on this project, the following will need to be installed:
-
-- [NodeJS](https://nodejs.org/) (Version 18.x is Recommended)
-
-It is also recommended that you install the following:
-
-- [Visual Studio Code](https://code.visualstudio.com/) - Recommended development IDE
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) - Required if you plan to do any development more than simple commands.
-
-## Quick Start Contributions
-
-Want to quickly get started adding commands? Check out the simple "Hello" command in [src/commands/hello.ts](src/commands/hello.ts), or a slightly more complicated "Poke" command in [src/commands/poke.ts](src/commands/poke.ts). You can begin adding new commands to the [src/commands](src/commands) directory, and creating tests for your command in [test/commands](test/commands)! See [test/commands/hello.test.ts](test/commands/hello.test.ts) and [test/commands/poke.test.ts](test/commands/poke.test.ts) for example tests too!
-
-To test your command locally, you'll first want to build the code with `npm run build`. Afterwards, you can use the `command` script to test the command locally by passing in a request event structure. For example, to run the "Hello" command, you can simply do the following:
-
-```bash
-npm run build
-npm run command '{"name": "hello"}'
-```
-
-You can pass in arguments by adding options to the JSON data input, for example, here is the "Poke" command where we can pass in a user ID for who to poke:
-
-```bash
-npm run build
-npm run command '{"name": "poke", "options": [{"value": "123"}]}'
-```
-
-Commands can also use the information of the Discord user that sent the message. For example, the "Hello" command can respond to the specific user when run as follows:
-
-```bash
-npm run build
-npm run command '{"name": "hello"}' '{"user": {"id": 123}}'
-```
-
-Join the CNU ACM Discord server to get help!
+To get started developing the bot, checkout the wiki page for the bot at [https://github.com/GEMISIS/captain-chris-bot/wiki](https://github.com/GEMISIS/captain-chris-bot/wiki).
 
 ## Architecture
 
 The architecture of this projet is fairly simple: When a user uses a slash command from this bot, Discord will reach out to our endpoint at API Gateway and call into the lambda function at [src/functions/core-command.ts](src/functions/core-command.ts). If the command is valid, then the corresponding command in [src/commands](src/commands) will be called! You can see the architecture of the cloud side below:
 
 ![Architecture of the bot](diagrams/architecture.png?raw=true)
-
-## Setting Up Project
-
-*Note: You only need to setup the project if you plan to deploy the Discord bot. If you just want to add a command, you can simple pull down the code, create a command with appropriate tests, and go from there.*
-
-To setup the project so you can contribute, simply run the following commands:
-
-```bash
-npm install
-```
-
-It is recommended you use [Visual Studio Code](https://code.visualstudio.com/) for development since it has support for autocompleting many of the types here.
-
-To deploy the bot to your own AWS account, you'll need to [setup the AWS CLI to deploy](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html), including connecting your account to do so. After that, you can run the following commands to deploy to your account:
-
-```bash
-# Compile the TypeScript code
-npm run build
-# Synthesize the CDK application
-cdk synth
-# Deploy the CDK application
-cdk deploy
-```
-
-After this, you'll need to update your AWS Secrets Manager secret created from this deployment with the following JSON structure:
-
-```json
-{
-    "applicationId": "123",
-    "publicKey": "456",
-    "botToken": "789",
-    "authToken": "789"
-}
-```
-
-This information is used when validating things with Discord's APIs. Once you have done this, you can get deploy your API Gateway endpoint, and enter its URL into your Discord bot's `INTERACTIONS ENDPOINT URL` section.
-
-## Adding New Commands
-
-Adding commands is fairly straightforward:
-
-1. Begin by creating a new command file in [src/commands](src/commands)
-2. Declare a slash command structure.
-3. Declare your command's callback for when called.
-4. Update the [Commands array in src/commands/command-list.ts](src/commands/command-list.ts#L27) with your command.
-
-As an example, you can see in [src/commands/hello.ts](src/commands/hello.ts) a very simple "hello world" command. If you want your command to take inputs, see [src/commands/poke.ts](src/commands/poke.ts) for how to tag users (note that you can use strings and other types too!)
-
-After you have added a new command, there are two things that still need to happen to actually use the commands:
-
-1. The CDK stack needs to be updated with the new code to run the command.
-2. The new commands need to be registered with Discord for the bot.
-
-You can update the CDK stack with the instructions above this section for deploying. To update Discord with the new commands, you will need to run the following command:
-
-```bash
-npm run configure <secrets_name>
-```
-
-Where `<secrets_name>` is the name of your AWS Secrets Manager secret. This will be used to pull the bot's token and application ID. **Note that this means the bot won't have your commands until your changes have been submitted and accepted!**
-
-## Contributing
-
-If you plan to contribute new commands to the project, please make sure to `lint` your code using `npm run lint` and fixing any errors that appear. Also ensure that you have added proper tests for your command, and that `npm run test` succeeds fully. If you are not sure why your tests are not getting full coverage, you can find the full details of what is tested in the generated `coverage/lcov-report/index.html` file once you have run the tests.
 
 ## Useful commands
 
