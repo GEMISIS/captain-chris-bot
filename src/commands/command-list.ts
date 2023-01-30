@@ -4,6 +4,7 @@ import {
     IDiscordResponseData,
 } from 'discord-bot-cdk-construct';
 import { PartialApplicationCommand } from 'slash-commands';
+import { AddCommand } from './add';
 import { HelloCommand } from './hello';
 import { PokeCommand } from './poke';
 import { WhoAreYouCommand } from './whoareyou';
@@ -33,4 +34,5 @@ export const Commands: CustomCommand[] = [
     HelloCommand,
     PokeCommand,
     WhoAreYouCommand,
+    AddCommand,
 ];
