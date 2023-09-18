@@ -8,14 +8,15 @@ import { CaptainChrisBotStack, CaptainChrisBotStackProps } from '../../src/stack
 describe('Stack test', () => {
     test('Confirm stack resources for bot', () => {
         const stackProps: CaptainChrisBotStackProps = {
-            tableName: 'testTable',
+            usersTableName: 'testUsersTable',
+            companiesTableName: 'testCompaniesTable',
         };
         const app = new App();
         const stack = new CaptainChrisBotStack(app, 'MyTestStack', stackProps);
         const template = Template.fromStack(stack);
 
         template.hasResourceProperties('AWS::DynamoDB::Table', {
-            TableName: stackProps.tableName,
+            TableName: stackProps.usersTableName,
             AttributeDefinitions: [
                 {
                     AttributeName: 'uid',
@@ -30,6 +31,22 @@ describe('Stack test', () => {
             ],
         });
 
+        template.hasResourceProperties('AWS::DynamoDB::Table', {
+            TableName: stackProps.companiesTableName,
+            AttributeDefinitions: [
+                {
+                    AttributeName: 'id',
+                    AttributeType: 'N',
+                },
+            ],
+            KeySchema: [
+                {
+                    AttributeName: 'id',
+                    KeyType: 'HASH',
+                },
+            ],
+        });
+
         template.hasResourceProperties('AWS::Lambda::Function', {
             Handler: 'index.handler',
             MemorySize: 256,
@@ -37,7 +54,8 @@ describe('Stack test', () => {
             Timeout: 60,
             Environment: {
                 Variables: {
-                    'userTableName': stackProps.tableName,
+                    'companiesTableName': stackProps.companiesTableName,
+                    'usersTableName': stackProps.usersTableName,
                 },
             },
         });

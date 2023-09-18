@@ -8,7 +8,8 @@ import * as path from 'path';
 
 export interface CaptainChrisBotStackProps extends StackProps {
     // Used for testing
-    tableName?: string;
+    usersTableName?: string;
+    companiesTableName?: string;
 }
 
 /**
@@ -26,9 +27,17 @@ export class CaptainChrisBotStack extends Stack {
         super(scope, id, props);
 
         const usersTable = new Table(this, 'captain-chris-users', {
-            tableName: props?.tableName,
+            tableName: props?.usersTableName,
             partitionKey: {
                 name: 'uid',
+                type: AttributeType.NUMBER,
+            },
+        });
+
+        const companiesTable = new Table(this, 'captain-chris-companies', {
+            tableName: props?.companiesTableName,
+            partitionKey: {
+                name: 'id',
                 type: AttributeType.NUMBER,
             },
         });
@@ -41,7 +50,8 @@ export class CaptainChrisBotStack extends Stack {
             timeout: Duration.seconds(60),
             memorySize: 256,
             environment: {
-                'userTableName': props?.tableName ?? usersTable.tableName,
+                'companiesTableName': props?.companiesTableName ?? companiesTable.tableName,
+                'usersTableName': props?.usersTableName ?? usersTable.tableName,
             },
         });
 
